@@ -45,8 +45,18 @@ namespace '/api/v1' do
     { status: 200, data: [] }
   end
 
+  ATTRIBUTE_MAPPINGS = {
+    w: :width,
+    h: :height
+  }.freeze
+
   get '/images' do
+    ATTRIBUTE_MAPPINGS.each do |indx, _obj_key|
+      params[ob_key] = params[indx] if params.key?(indx)
+    end
+
     @images ||= request_images
+
     @images.map(&:to_h).to_json
   end
 end
