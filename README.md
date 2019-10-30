@@ -12,6 +12,7 @@ Photo gallery application with backend and frontend components
 2. run `bundle install`
 3. run `rackup config.ru`
 4. navigate to `http://localhost:9292/api/v1/images`
+5. to filter images: `http://localhost:9292/api/v1/images?w=100&h=250`
 
 ## Frontend
 ### Dependencies

@@ -51,11 +51,17 @@ namespace '/api/v1' do
   }.freeze
 
   get '/images' do
-    ATTRIBUTE_MAPPINGS.each do |indx, _obj_key|
-      params[ob_key] = params[indx] if params.key?(indx)
+    ATTRIBUTE_MAPPINGS.each do |indx, obj_key|
+      params[obj_key] = params[indx] if params.key?(indx)
     end
 
     @images ||= request_images
+
+    ATTRIBUTE_MAPPINGS.each do |_indx, val|
+      @images = @images.each_with_object([]) do |item, acc|
+        acc << item if item.send(val) != params[val]
+      end
+    end
 
     @images.map(&:to_h).to_json
   end
